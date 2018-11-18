@@ -1,0 +1,29 @@
+{
+    "name": "FUI",
+    "version": "0.0.1",
+    "description": "A forms UI based on Vue.js, using FHIR Questionnaires.",
+    "keywords": [
+        "UI",
+        "user interface",
+        "FHIR",
+        "Questionnaire",
+        "Vue.js"
+    ],
+    "homepage": "https://github.com/lhitc/fui",
+    "bugs": {
+        "url": "https://github.com/lhitc/fui/issues"
+    },
+    "license": "Apache-2.0",
+    "author": {
+        "name": "Stefan Lang",
+        "email": "stefan.lang@lang-hitc.de",
+        "url": "https://www-lang-hitc.de"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/lhitc/fui.git"
+    },
+    "dependencies": {
+        "vue": ">= 2.5.17"
+    }
+}
