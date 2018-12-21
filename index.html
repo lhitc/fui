@@ -4,11 +4,44 @@
 <head>
 	<meta charset="UTF-8">
 	<title>FUI demo page</title>
-	<link rel="stylesheet" type="text/text/css" href="fui.css">
-	<script type="application/javascript" defer="defer" src="./fui.js" charset="UTF-8"></script>
+	<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="fui.css">
+	<script type="application/javascript" src="node_modules/vue/dist/vue.js" charset="UTF-8"></script>
+	<script type="application/javascript" src="./fui.js" charset="UTF-8"></script>
+	<script type="application/javascript" src="./node_modules/jquery/dist/jquery.min.js" charset="UTF-8"></script>
+	<script type="application/javascript" src="./node_modules/bootstrap/dist/js/bootstrap.js" charset="UTF-8"></script>
 </head>
 
 <body>
+	<div class="container" id="fui">
+		<div class="row">
+			<h1>FUI Questionnaire renderer example</h1>
+		</div>
+		<div class="row">
+			<h2>Questionnaire metadata</h2>
+			<div class="container">
+				<label-value-scalar	v-bind:label="'id'"					v-bind:value="questionnaire.id"></label-value-scalar>
+				<label-value-scalar	v-bind:label="'canonical URL'"		v-bind:value="questionnaire.url"></label-value-scalar>
+				<label-value-identifier	v-bind:label="'identifier'"		v-bind:value="cur" 							v-for="cur in questionnaire.identifier"></label-value-identifier>
+				<label-value-scalar	v-bind:label="'title'"				v-bind:value="questionnaire.title"></label-value-scalar>
+				<label-value-scalar	v-bind:label="'status'"				v-bind:value="questionnaire.status"></label-value-scalar>
+				<label-value-scalar	v-bind:label="'experimental'"		v-bind:value="questionnaire.experimental"></label-value-scalar>
+				<label-value-scalar	v-bind:label="'date'"				v-bind:value="questionnaire.date"></label-value-scalar>
+				<label-value-scalar	v-bind:label="'publisher'"			v-bind:value="questionnaire.publisher"></label-value-scalar>
+				<label-value-scalar	v-bind:label="'description'"		v-bind:value="questionnaire.description"></label-value-scalar>
+				<label-value-scalar	v-bind:label="'purpose'"			v-bind:value="questionnaire.purpose"></label-value-scalar>
+				<label-value-scalar	v-bind:label="'approvalDate'"		v-bind:value="questionnaire.approvalDate"></label-value-scalar>
+				<label-value-scalar	v-bind:label="'lastReviewDate'"		v-bind:value="questionnaire.lastReviewDate"></label-value-scalar>
+				<label-value-period	v-bind:label="'effectivePeriod'"	v-bind:value="questionnaire.effectivePeriod"></label-value-period>
+				<label-value-scalar	v-bind:label="'useContext'"			v-bind:value="'TBD'"></label-value-scalar>
+				<label-value-scalar	v-bind:label="'jurisdiction'"		v-bind:value="'TBD'"></label-value-scalar>
+				<label-value-scalar	v-bind:label="'contact'"			v-bind:value="'TBD'"></label-value-scalar>
+				<label-value-scalar	v-bind:label="'copyright'"			v-bind:value="'TBD'"></label-value-scalar>
+				<label-value-scalar	v-bind:label="'subjectType'"		v-bind:value="cur"	 						v-for="cur in questionnaire.subjectType"></label-value-scalar>
+			</div>
+		</div>
+	</div>
+	<script type="application/javascript" defer="defer" src="./index.js" charset="UTF-8"></script>
 </body>
 
 </html>

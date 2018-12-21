@@ -1,0 +1,542 @@
+{
+    "resourceType": "Questionnaire",
+    "id": "4711",
+    "text": {
+        "status": "generated",
+        "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Test-Questionnaire für FUI</div>"
+    },
+    "url": "http://lang-hitc.de/fhir/Questionnaire/fui/example",
+    "identifier": [
+		{
+        	"system": "http://lang-hitc.de/fhir/identifiers/fui/examples",
+        	"value": "1"
+    	},
+		{
+        	"system": "http://lang-hitc.de/fhir/identifiers/fui/some-other-identifier",
+        	"value": "5646"
+    	}
+	],
+    "title": "FUI example Questionnaire",
+    "status": "draft",
+    "date": "2018-11-18",
+	"effectivePeriod": {
+		"end": "2028-12-21"
+	},
+    "subjectType": [
+        "Patient"
+    ],
+    "item": [{
+            "linkId": "0",
+            "text": "Teilnahme Integrierte Versorgung (I.V.)",
+            "type": "group",
+            "required": false,
+            "item": [{
+                    "linkId": "0.1",
+                    "text": "Teilnahme",
+                    "type": "boolean",
+                    "required": false
+                },
+                {
+                    "linkId": "0.2",
+                    "text": "Nr.: XYZ",
+                    "type": "string",
+                    "required": false
+                }
+            ]
+        },
+        {
+            "linkId": "1",
+            "text": "Patientenetikett",
+            "type": "group",
+            "item": [{
+                    "linkId": "1.1",
+                    "text": "Patientenstammdaten können aus QuestionnaireResponse.subject übernommen werden, müssen hier nicht nochmal separat erhoben werden, die Patient-Ressource muss dann jedoch stets zusammen mit der Questionnaire-Response übermittelt werden",
+                    "type": "display"
+                },
+                {
+                    "linkId": "1.2",
+                    "text": "Gewicht in kg",
+                    "type": "integer",
+                    "required": false
+                },
+                {
+                    "linkId": "1.3",
+                    "text": "Größe in cm",
+                    "type": "integer",
+                    "required": false
+                },
+                {
+                    "linkId": "1.4",
+                    "text": "Fallart zum Zeitpunkt dieser Anforderung",
+                    "type": "choice",
+                    "required": false,
+                    "options": {
+                        "reference": "http://hl7.org/fhir/ValueSet/v3-ActEncounterCode"
+                    }
+                },
+                {
+                    "linkId": "1.5",
+                    "text": "Raucherstatus",
+                    "type": "group",
+                    "required": false,
+                    "item": [{
+                            "linkId": "1.5.1",
+                            "text": "Raucherstatus",
+                            "type": "choice",
+                            "required": false,
+                            "options": {
+                                "reference": "http://uni-koeln.de/fhir/ValueSet/nngm/raucherstatus"
+                            }
+                        },
+                        {
+                            "linkId": "1.5.2",
+                            "text": "Packungen pro Jahr",
+                            "type": "integer",
+                            "enableWhen": [{
+                                    "question": "1.5.1",
+                                    "answerCoding": {
+                                        "system": "http://uni-koeln.de/fhir/CodeSystem/nngm/raucherstatus",
+                                        "code": "r"
+                                    }
+                                },
+                                {
+                                    "question": "1.5.1",
+                                    "answerCoding": {
+                                        "system": "http://uni-koeln.de/fhir/CodeSystem/nngm/raucherstatus",
+                                        "code": "er"
+                                    }
+                                }
+                            ],
+                            "required": false
+                        },
+                        {
+                            "linkId": "1.5.3",
+                            "text": "Nichtraucher seit (in Jahren)",
+                            "type": "integer",
+                            "enableWhen": [{
+                                "question": "1.5.1",
+                                "answerCoding": {
+                                    "system": "http://uni-koeln.de/fhir/CodeSystem/nngm/raucherstatus",
+                                    "code": "er"
+                                }
+                            }],
+                            "required": false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "linkId": "2",
+            "text": "Krankenversicherung",
+            "type": "group",
+            "item": [{
+                    "linkId": "2.1",
+                    "text": "Versicherungsart",
+                    "type": "choice",
+                    "required": true,
+                    "options": {
+                        "reference": "http://fhir.de/ValueSet/versicherungsart-de-basis"
+                    }
+                },
+                {
+                    "linkId": "2.2",
+                    "text": "Versicherungsnummer",
+                    "type": "string",
+                    "required": false
+                },
+                {
+                    "linkId": "2.3",
+                    "text": "Name der Krankenkasse",
+                    "type": "string",
+                    "required": false
+                },
+                {
+                    "linkId": "2.4",
+                    "text": "Tarifform (bitte bei PKV IMMER angeben)",
+                    "type": "choice",
+                    "enableWhen": [{
+                        "question": "2.1",
+                        "answerCoding": {
+                            "system": "http://fhir.de/CodeSystem/versicherungsart-de-basis",
+                            "code": "PKV"
+                        }
+                    }],
+                    "required": true,
+                    "options": {
+                        "reference": "http://uni-koeln.de/fhir/ValueSet/nngm/pkv-tarifform"
+                    }
+                }
+            ]
+        },
+        {
+            "linkId": "4",
+            "text": "Gesundheitszustand",
+            "type": "group",
+            "required": false,
+            "item": [{
+                    "linkId": "4.1",
+                    "text": "ECOG Performance Status",
+                    "type": "choice",
+                    "required": true,
+                    "options": {
+                        "reference": "http://uni-koeln.de/fhir/ValueSet/ecog"
+                    }
+                },
+                {
+                    "linkId": "4.2",
+                    "text": "Histologie (bitte unbedingt pathologischen Befund beifügen)",
+                    "type": "open-choice",
+                    "required": true,
+                    "options": {
+                        "reference": "http://uni-koeln.de/fhir/ValueSet/icd-o-3-m-lunge"
+                    }
+                },
+                {
+                    "linkId": "4.3",
+                    "text": "Angaben zum Tumorstadium",
+                    "type": "group",
+                    "required": false,
+                    "item": [{
+                            "linkId": "4.3.1",
+                            "text": "Erstdiagnose (ED)",
+                            "type": "group",
+                            "required": false,
+                            "item": [{
+                                    "linkId": "4.3.1.1",
+                                    "text": "ED am",
+                                    "type": "date",
+                                    "required": true
+                                },
+                                {
+                                    "linkId": "4.3.1.2",
+                                    "text": "ED histopathologisch gesichert",
+                                    "type": "boolean",
+                                    "required": true
+                                },
+                                {
+                                    "linkId": "4.3.1.3",
+                                    "text": "TNM-Status bei ED",
+                                    "type": "group",
+                                    "required": false,
+                                    "item": [{
+                                            "linkId": "4.3.1.3.1",
+                                            "text": "T",
+                                            "type": "choice",
+                                            "required": true,
+                                            "options": {
+                                                "reference": "http://uni-koeln.de/fhir/ValueSet/tnm-t-lunge"
+                                            }
+                                        },
+                                        {
+                                            "linkId": "4.3.1.3.2",
+                                            "text": "N",
+                                            "type": "choice",
+                                            "required": true,
+                                            "options": {
+                                                "reference": "http://uni-koeln.de/fhir/ValueSet/tnm-n-lunge"
+                                            }
+                                        },
+                                        {
+                                            "linkId": "4.3.1.3.3",
+                                            "text": "M",
+                                            "type": "choice",
+                                            "required": true,
+                                            "options": {
+                                                "reference": "http://uni-koeln.de/fhir/ValueSet/tnm-m-lunge"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "linkId": "4.3.1.4",
+                                    "text": "UICC bei ED",
+                                    "type": "choice",
+                                    "required": true,
+                                    "options": {
+                                        "reference": "http://uni-koeln.de/fhir/ValueSet/uicc-lunge"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "linkId": "4.3.2",
+                            "text": "Aktuelles Tumorstadium (sofern abweichend von der ED)",
+                            "type": "group",
+                            "required": false,
+                            "item": [{
+                                    "linkId": "4.3.2.1",
+                                    "text": "Aktuelles Tumorstadium seit",
+                                    "type": "date",
+                                    "required": false
+                                },
+                                {
+                                    "linkId": "4.3.2.2",
+                                    "text": "Aktueller TNM-Status",
+                                    "type": "group",
+                                    "required": false,
+                                    "item": [{
+                                            "linkId": "4.3.2.2.1",
+                                            "text": "T",
+                                            "type": "choice",
+                                            "required": false,
+                                            "options": {
+                                                "reference": "http://uni-koeln.de/fhir/ValueSet/tnm-t-lunge"
+                                            }
+                                        },
+                                        {
+                                            "linkId": "4.3.2.2.2",
+                                            "text": "N",
+                                            "type": "choice",
+                                            "required": false,
+                                            "options": {
+                                                "reference": "http://uni-koeln.de/fhir/ValueSet/tnm-n-lunge"
+                                            }
+                                        },
+                                        {
+                                            "linkId": "4.3.2.2.3",
+                                            "text": "M",
+                                            "type": "choice",
+                                            "required": false,
+                                            "options": {
+                                                "reference": "http://uni-koeln.de/fhir/ValueSet/tnm-m-lunge"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "linkId": "4.3.2.3",
+                                    "text": "UICC aktuell",
+                                    "type": "choice",
+                                    "required": false,
+                                    "options": {
+                                        "reference": "http://uni-koeln.de/fhir/ValueSet/uicc-lunge"
+                                    }
+                                },
+                                {
+                                    "linkId": "4.3.2.4",
+                                    "text": "Kurativ-operabel",
+                                    "type": "boolean",
+                                    "required": false
+                                }
+                            ]
+                        },
+                        {
+                            "linkId": "4.3.3",
+                            "text": "Rezidiv/Progress",
+                            "type": "group",
+                            "required": false,
+                            "item": [{
+                                    "linkId": "4.3.3.1",
+                                    "text": "Rezidiv/Progress aufgetreten",
+                                    "type": "boolean",
+                                    "required": true
+                                },
+                                {
+                                    "linkId": "4.3.3.2",
+                                    "text": "Zeitpunkt",
+                                    "type": "date",
+                                    "enableWhen": [{
+                                        "question": "4.3.3.1",
+                                        "answerBoolean": true
+                                    }],
+                                    "required": false
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "linkId": "5",
+            "text": "Resistenztestung",
+            "type": "group",
+            "required": false,
+            "item": [{
+                    "linkId": "5.1",
+                    "text": "Möchten Sie für Ihren Patienten eine Resistenztestung anfordern?",
+                    "type": "boolean",
+                    "required": false
+                },
+                {
+                    "linkId": "5.2",
+                    "text": "Resistenztestung EGFR",
+                    "type": "group",
+                    "enableWhen": [{
+                        "question": "5.1",
+                        "answerBoolean": true
+                    }],
+                    "required": false,
+                    "item": [{
+                            "linkId": "5.2.1",
+                            "text": "Resistenztestung EGFR beantragen?",
+                            "type": "boolean",
+                            "required": false
+                        },
+                        {
+                            "linkId": "5.2.2",
+                            "text": "nähere Angaben",
+                            "type": "group",
+                            "enableWhen": [{
+                                "question": "5.2.1",
+                                "answerBoolean": true
+                            }],
+                            "required": false,
+                            "item": [{
+                                    "linkId": "5.2.2.1.1",
+                                    "text": "1. Therapie mit einem EGFR-TKI bei bekannter EGFR-Mutation erfolgt?",
+                                    "type": "boolean",
+                                    "required": false
+                                },
+                                {
+                                    "linkId": "5.2.2.1.2",
+                                    "text": "EGFR-TKI",
+                                    "type": "string",
+                                    "enableWhen": [{
+                                        "question": "5.2.2.1.1",
+                                        "answerBoolean": true
+                                    }],
+                                    "required": true
+                                },
+                                {
+                                    "linkId": "5.2.2.2",
+                                    "text": "2. Progress unter Therapie mit einem EGFR-TKI bei bekannter EGFR-Mutation?",
+                                    "type": "boolean",
+                                    "required": false
+                                },
+                                {
+                                    "linkId": "5.2.2.3",
+                                    "text": "3. Re-Biopsie",
+                                    "type": "group",
+                                    "enableWhen": [{
+                                        "question": "5.2.2.2",
+                                        "answerBoolean": true
+                                    }],
+                                    "required": false,
+                                    "item": [{
+                                            "linkId": "5.2.2.3.1",
+                                            "text": "Nach Feststellung des Progresses ist eine erneute Biopsie erfolgt (Re-Biopsie)?",
+                                            "type": "boolean",
+                                            "required": false
+                                        },
+                                        {
+                                            "linkId": "5.2.2.3.2",
+                                            "text": "Erfolgt am",
+                                            "type": "date",
+                                            "enableWhen": [{
+                                                "question": "5.2.2.3.1",
+                                                "answerBoolean": true
+                                            }],
+                                            "required": false
+                                        },
+                                        {
+                                            "linkId": "5.2.2.3.3",
+                                            "text": "Re-Biopsie hat folgende interne Nummer",
+                                            "type": "string",
+                                            "enableWhen": [{
+                                                "question": "5.2.2.3.1",
+                                                "answerBoolean": true
+                                            }],
+                                            "required": false
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "linkId": "5.3",
+                    "text": "Resistenztestung ALK-Inhibitor",
+                    "type": "group",
+                    "enableWhen": [{
+                        "question": "5.1",
+                        "answerBoolean": true
+                    }],
+                    "required": false,
+                    "item": [{
+                            "linkId": "5.3.1",
+                            "text": "Resistenztestung ALK-Inhibitor beantragen?",
+                            "type": "boolean",
+                            "required": false
+                        },
+                        {
+                            "linkId": "5.3.2",
+                            "text": "nähere Angaben",
+                            "type": "group",
+                            "enableWhen": [{
+                                "question": "5.3.1",
+                                "answerBoolean": true
+                            }],
+                            "required": false,
+                            "item": [{
+                                    "linkId": "5.3.2.1",
+                                    "text": "1. Therapie mit Crizotinib bei bekannter ALK-Translokation erfolgt?",
+                                    "type": "boolean",
+                                    "required": false
+                                },
+                                {
+                                    "linkId": "5.3.2.2",
+                                    "text": "2. Progress unter Therapie mit Crizotinib bei bekannter ALK-Translokation?",
+                                    "type": "boolean",
+                                    "required": false
+                                },
+                                {
+                                    "linkId": "5.3.2.3",
+                                    "text": "3. Therapie nach Progress mit folgendem ALK-TKI",
+                                    "type": "open-choice",
+                                    "enableWhen": [{
+                                        "question": "5.3.2.2",
+                                        "answerBoolean": true
+                                    }],
+                                    "required": false,
+                                    "options": {
+                                        "reference": "http://uni-koeln.de/fhir/ValueSet/nngm/alk-tki"
+                                    }
+                                },
+                                {
+                                    "linkId": "5.3.2.4",
+                                    "text": "4. Re-Biopsie",
+                                    "type": "group",
+                                    "enableWhen": [{
+                                        "question": "5.3.2.2",
+                                        "answerBoolean": true
+                                    }],
+                                    "required": false,
+                                    "item": [{
+                                            "linkId": "5.3.2.4.1",
+                                            "text": "Nach Feststellung des Progresses ist eine erneute Biopsie erfolgt (Re-Biopsie)?",
+                                            "type": "boolean",
+                                            "required": false
+                                        },
+                                        {
+                                            "linkId": "5.3.2.4.2",
+                                            "text": "Zeitpunkt",
+                                            "type": "date",
+                                            "enableWhen": [{
+                                                "question": "5.3.2.4.1",
+                                                "answerBoolean": true
+                                            }],
+                                            "required": false
+                                        },
+                                        {
+                                            "linkId": "5.3.2.4.3",
+                                            "text": "Re-Biopsie hat folgende interne Nummer",
+                                            "type": "string",
+                                            "enableWhen": [{
+                                                "question": "5.3.2.4.1",
+                                                "answerBoolean": true
+                                            }],
+                                            "required": false
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
